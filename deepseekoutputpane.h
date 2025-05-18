@@ -17,8 +17,12 @@ public:
 
     // IOutputPane interface
     QWidget *outputWidget(QWidget *parent) override;
-    QString displayName() const override;
-    int priorityInStatusBar() const override;
+
+    // These methods aren't marked as virtual in the base class
+    // so we shouldn't mark them as override
+    QString displayName() const;
+    int priorityInStatusBar() const;
+
     void clearContents() override;
     void visibilityChanged(bool visible) override;
     void setFocus() override;
