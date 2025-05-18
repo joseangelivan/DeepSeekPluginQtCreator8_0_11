@@ -1,19 +1,16 @@
 TARGET = DeepSeekPlugin
 TEMPLATE = lib
-# QT += core gui network widgets
 QT += core gui network widgets
 
-# CONFIG += plugin c++14
+# Use C++17 for compatibility with Qt Creator 16.0.1
 CONFIG += plugin c++17
 
 # Paths to Qt Creator
-# IDE_SOURCE_TREE = /opt/Qt/Tools/QtCreator
-# IDE_BUILD_TREE = /opt/Qt/Tools/QtCreator
 IDE_SOURCE_TREE = /opt/qtcreator-16.0.1
 IDE_BUILD_TREE = /opt/qtcreator-16.0.1
 message( IDE_SOURCE_TREE:  $${IDE_SOURCE_TREE} )
 
-# Añadir nuestro directorio de compatibilidad primero para interceptar las inclusiones
+# Add our compatibility directory first to intercept includes
 INCLUDEPATH += $$PWD/compat
 
 # Include paths
@@ -74,4 +71,8 @@ OTHER_FILES += \
 
 # Translations
 TRANSLATIONS += \
-    translations/deepseek_es_419.ts
+    translations/deepseek_es_419.ts \
+    translations/deepseek_zh_CN.ts
+
+# Make sure the destination directory for the binary exists
+QMAKE_PRE_LINK += "mkdir -p $$IDE_BUILD_TREE/lib/qtcreator/plugins"

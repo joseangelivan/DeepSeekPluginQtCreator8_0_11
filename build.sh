@@ -1,3 +1,4 @@
+#!/bin/bash
 # Qt Creator Plugin Compilation Utils
 # Este archivo lo puedes usar para compilar el plugin
 
@@ -12,7 +13,8 @@ export LD_LIBRARY_PATH=$QT_DIR/lib:$LD_LIBRARY_PATH
 # Compila el plugin
 mkdir -p build
 cd build
-qmake-qt5 ../DeepSeekPlugin.pro -spec linux-g++ CONFIG+=debug
+# Changed from qmake-qt5 to qmake
+$QT_DIR/bin/qmake ../DeepSeekPlugin.pro -spec linux-g++ CONFIG+=debug
 make -j4
 
 # Instala el plugin

@@ -1,5 +1,5 @@
-# Backup qtcreatorplugin.pri file in case the original one is not found
-# Based on standard Qt Creator plugin template for Qt 5.14.2
+# Updated qtcreatorplugin.pri file for Qt Creator 16.0.1
+# Based on standard Qt Creator plugin template
 
 DEFINES += DEEPSEEKPLUGIN_LIBRARY
 # Qt Creator linking
@@ -19,10 +19,10 @@ isEmpty(QTC_PLUGIN_NAME):error("QTC_PLUGIN_NAME must be set, for example to 'MyP
 
 PLUGINSPEC = $${_PRO_FILE_PWD_}/$${QTC_PLUGIN_NAME}.json
 
-# Force c++14
-# CONFIG += c++14
+# Force c++17
 CONFIG += c++17
 message(QTC_PLUGIN_DIRS: $$(QTC_PLUGIN_DIRS))
+
 # Qt Creator from environment
 QTC_PLUGIN_DIRS = $$(QTC_PLUGIN_DIRS)
 QTC_PLUGIN_DIRS = $$split(QTC_PLUGIN_DIRS, :)
@@ -41,30 +41,55 @@ isEmpty(USE_USER_DESTDIR) {
 DESTDIR = $$IDE_BUILD_TREE/lib/qtcreator/plugins
 
 # Set destination for plugin lib
-qtcinstall.files = $$DESTDIR/$$qtLibraryTargetName($$TARGET)
+contains(QT_CONFIG, reduce_exports):CONFIG += hide_symbols
+
+win32 {
+    DLLDESTDIR = $$IDE_BUILD_TREE/bin
+    LIBRARY_NAME = $$TARGET.dll
+    LIBRARY_PATH = $$DLLDESTDIR/$$LIBRARY_NAME
+} else {
+    LIBRARY_NAME = lib$${TARGET}.so
+    macx:LIBRARY_NAME = lib$${TARGET}.dylib
+    LIBRARY_PATH = $$DESTDIR/$$LIBRARY_NAME
+    QMAKE_LFLAGS += "-Wl,-rpath,\'$$DESTDIR\'"
+}
+
+qtcinstall.files = $$DESTDIR/$$LIBRARY_NAME
 !isEmpty(USE_USER_DESTDIR) {
     qtcinstall.path = $${USE_USER_DESTDIR}/lib/qtcreator/plugins
     INSTALLS += qtcinstall
 }
 
 unix:!macx {
-    # for a change in lib name from "lib$${TARGET}.so.1.0.0" to "lib$${TARGET}.so"
-    QMAKE_POST_LINK += $$sprintf($$QMAKE_SYMBOLIC_LINK, $$qtLibraryTargetName($$TARGET), lib$${TARGET}.so)
-    QMAKE_POST_LINK += $$sprintf($$QMAKE_SYMBOLIC_LINK, lib$${TARGET}.so, lib$${TARGET}.so.1)
-    QMAKE_POST_LINK += $$sprintf($$QMAKE_SYMBOLIC_LINK, lib$${TARGET}.so.1, lib$${TARGET}.so.1.0)
-    QMAKE_POST_LINK += $$sprintf($$QMAKE_SYMBOLIC_LINK, lib$${TARGET}.so.1.0, lib$${TARGET}.so.1.0.0)
+    # Create symbolic links for the plugin
+    QMAKE_POST_LINK += "ln -f -s lib$${TARGET}.so lib$${TARGET}.so.1 && "
+    QMAKE_POST_LINK += "ln -f -s lib$${TARGET}.so.1 lib$${TARGET}.so.1.0 && "
+    QMAKE_POST_LINK += "ln -f -s lib$${TARGET}.so.1.0 lib$${TARGET}.so.1.0.0"
 }
 
 LIBS += -L$$IDE_BUILD_TREE/lib/qtcreator
 LIBS += -L$$IDE_BUILD_TREE/lib/qtcreator/plugins
 
 # plugin dependencies
+defineReplace(dependencyName) {
+    dependency_name = $$1
+    CONFIG(debug, debug|release) {
+        !debug_and_release|build_pass {
+            win32:dependency_name = $${dependency_name}d
+        }
+    }
+    return($$dependency_name)
+}
+
 for(dep, QTC_PLUGIN_DEPENDS) {
-    # copy the list as qtLibraryName() modifies the original content
-    LIBS += -l$$qtLibraryName($$dep)
+    LIBS += -l$$dependencyName($$dep)
 }
 
 # for lib dependencies
 for(dep, QTC_LIB_DEPENDS) {
-    LIBS += -l$$qtLibraryName($$dep)
+    LIBS += -l$$dependencyName($$dep)
 }
+
+# Additional directories to look for libraries
+LIBS += -L$${IDE_BUILD_TREE}/lib/qtcreator
+LIBS += -L$${IDE_BUILD_TREE}/lib/qtcreator/plugins
