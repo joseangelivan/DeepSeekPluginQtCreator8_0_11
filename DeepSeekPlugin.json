@@ -1,0 +1,18 @@
+{
+    "Name" : "DeepSeekPlugin",
+    "Version" : "0.1.0",
+    "CompatVersion" : "0.1.0",
+    "Vendor" : "YourCompany",
+    "Copyright" : "(C) 2025 YourCompany",
+    "License" : "MIT",
+    "Description" : "Integrates DeepSeek AI into Qt Creator",
+    "Url" : "https://yourwebsite.com",
+    "Category" : "Utilities",
+    
+    "Dependencies" : [
+        { "Name" : "Core", "Version" : "8.0.1" },
+        { "Name" : "TextEditor", "Version" : "8.0.1" }
+    ],
+    
+    "Experimental" : true
+}
