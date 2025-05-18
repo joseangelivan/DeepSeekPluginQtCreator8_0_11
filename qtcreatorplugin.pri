@@ -2,18 +2,17 @@
 # Based on standard Qt Creator plugin template for Qt 5.14.2
 
 DEFINES += DEEPSEEKPLUGIN_LIBRARY
-
 # Qt Creator linking
 
 ## Either set the IDE_SOURCE_TREE when running qmake,
 ## or set the QTC_SOURCE environment variable, to override the default setting
 isEmpty(IDE_SOURCE_TREE): IDE_SOURCE_TREE = $$(QTC_SOURCE)
-isEmpty(IDE_SOURCE_TREE): IDE_SOURCE_TREE = /opt/Qt/Tools/QtCreator
+isEmpty(IDE_SOURCE_TREE): IDE_SOURCE_TREE = /opt/qtcreator-16.0.1
 
 ## Either set the IDE_BUILD_TREE when running qmake,
 ## or set the QTC_BUILD environment variable, to override the default setting
 isEmpty(IDE_BUILD_TREE): IDE_BUILD_TREE = $$(QTC_BUILD)
-isEmpty(IDE_BUILD_TREE): IDE_BUILD_TREE = /opt/Qt/Tools/QtCreator
+isEmpty(IDE_BUILD_TREE): IDE_BUILD_TREE = /opt/qtcreator-16.0.1
 
 ## Plugin dependencies and 'pluginspec'
 isEmpty(QTC_PLUGIN_NAME):error("QTC_PLUGIN_NAME must be set, for example to 'MyPlugin'.")
@@ -21,8 +20,9 @@ isEmpty(QTC_PLUGIN_NAME):error("QTC_PLUGIN_NAME must be set, for example to 'MyP
 PLUGINSPEC = $${_PRO_FILE_PWD_}/$${QTC_PLUGIN_NAME}.json
 
 # Force c++14
-CONFIG += c++14
-
+# CONFIG += c++14
+CONFIG += c++17
+message(QTC_PLUGIN_DIRS: $$(QTC_PLUGIN_DIRS))
 # Qt Creator from environment
 QTC_PLUGIN_DIRS = $$(QTC_PLUGIN_DIRS)
 QTC_PLUGIN_DIRS = $$split(QTC_PLUGIN_DIRS, :)

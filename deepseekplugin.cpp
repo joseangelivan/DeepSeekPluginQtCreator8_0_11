@@ -20,8 +20,8 @@
 #include <QMenu>
 #include <QAction>
 #include <QMessageBox>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkRequest>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 #include <QJsonDocument>
 #include <QJsonObject>
 
@@ -49,7 +49,7 @@ bool DeepSeekPlugin::initialize(const QStringList &arguments, QString *errorStri
     // Add actions to menus
     // Connect to other plugins' signals
     // In the initialize function, you should add your actions to the plugins menu
-    
+
     Q_UNUSED(arguments)
     Q_UNUSED(errorString)
 
@@ -81,7 +81,7 @@ ExtensionSystem::IPlugin::ShutdownFlag DeepSeekPlugin::aboutToShutdown()
     // Save settings
     if (m_settings)
         m_settings->saveSettings(Core::ICore::settings());
-    
+
     // Disconnect from signals that are not needed during shutdown
     // Hide UI (if you add UI that is not in the main window directly)
     return SynchronousShutdown;
@@ -107,7 +107,7 @@ void DeepSeekPlugin::triggerDeepSeekAction()
 {
     IEditor *editor = EditorManager::currentEditor();
     if (!editor) {
-        QMessageBox::warning(Core::ICore::dialogParent(), 
+        QMessageBox::warning(Core::ICore::dialogParent(),
                              Tr::tr("DeepSeek"),
                              Tr::tr("No active editor."));
         return;
@@ -115,7 +115,7 @@ void DeepSeekPlugin::triggerDeepSeekAction()
 
     TextEditor::TextEditorWidget *editorWidget = qobject_cast<TextEditor::TextEditorWidget *>(editor->widget());
     if (!editorWidget) {
-        QMessageBox::warning(Core::ICore::dialogParent(), 
+        QMessageBox::warning(Core::ICore::dialogParent(),
                              Tr::tr("DeepSeek"),
                              Tr::tr("Current editor is not a text editor."));
         return;
@@ -123,7 +123,7 @@ void DeepSeekPlugin::triggerDeepSeekAction()
 
     QString selectedText = editorWidget->textCursor().selectedText();
     if (selectedText.isEmpty()) {
-        QMessageBox::warning(Core::ICore::dialogParent(), 
+        QMessageBox::warning(Core::ICore::dialogParent(),
                              Tr::tr("DeepSeek"),
                              Tr::tr("No text selected."));
         return;
@@ -149,26 +149,26 @@ void DeepSeekPlugin::sendApiRequest(const QString &endpoint, const QByteArray &d
     QNetworkRequest request;
     request.setUrl(QUrl(m_settings->apiUrl() + endpoint));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    
+
     QString apiKey = m_settings->apiKey();
     if (!apiKey.isEmpty()) {
         request.setRawHeader("Authorization", QString("Bearer %1").arg(apiKey).toUtf8());
     }
 
     QNetworkReply *reply = m_networkManager->post(request, data);
-    
+
     connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         reply->deleteLater();
-        
+
         if(reply->error() != QNetworkReply::NoError) {
             m_outputPane->appendText(Tr::tr("Error: %1").arg(reply->errorString()));
             m_outputPane->popup(Core::IOutputPane::ModeSwitch);
             return;
         }
-        
+
         QByteArray responseData = reply->readAll();
         QJsonDocument doc = QJsonDocument::fromJson(responseData);
-        
+
         if (doc.isObject()) {
             QJsonObject obj = doc.object();
             if (obj.contains("content")) {

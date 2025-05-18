@@ -10,8 +10,8 @@
     "Category" : "Utilities",
     
     "Dependencies" : [
-        { "Name" : "Core", "Version" : "8.0.1" },
-        { "Name" : "TextEditor", "Version" : "8.0.1" }
+        { "Name" : "Core", "Version" : "16.0.1" },
+        { "Name" : "TextEditor", "Version" : "16.0.1" }
     ],
     
     "Experimental" : true

@@ -1,9 +1,8 @@
 #pragma once
 
-// Usar ruta completa para los includes de Qt Creator
 #include <extensionsystem/iplugin.h>
 #include <QObject>
-#include <QtNetwork/QNetworkAccessManager>
+#include <QNetworkAccessManager>
 
 namespace DeepSeek {
 namespace Internal {

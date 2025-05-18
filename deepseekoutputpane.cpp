@@ -96,13 +96,13 @@ void DeepSeekOutputPane::appendText(const QString &text)
 {
     if (!m_outputWidget)
         return;
-    
+
     // Append separator if needed
     if (!m_outputWidget->document()->isEmpty())
         m_outputWidget->appendPlainText("\n-----------------------------\n");
-    
+
     m_outputWidget->appendPlainText(text);
-    
+
     // Auto-scroll to bottom
     QTextCursor cursor = m_outputWidget->textCursor();
     cursor.movePosition(QTextCursor::End);

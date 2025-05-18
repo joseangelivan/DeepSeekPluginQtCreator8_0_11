@@ -32,7 +32,7 @@ QWidget *DeepSeekOptionsPage::widget()
         m_widget = new QWidget;
         ui = new Ui::DeepSeekOptionsPage;
         ui->setupUi(m_widget);
-        
+
         ui->apiKeyEdit->setText(m_settings->apiKey());
         ui->apiUrlEdit->setText(m_settings->apiUrl());
         ui->modelEdit->setText(m_settings->model());

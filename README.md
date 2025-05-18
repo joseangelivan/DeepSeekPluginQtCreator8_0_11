@@ -1,51 +1,59 @@
-# DeepSeek Plugin for Qt Creator
+# DeepSeek Plugin para Qt Creator 16.0.1
 
-This plugin integrates DeepSeek AI capabilities into Qt Creator 8.0.1 (based on Qt 5.14.2 gcc_64).
+Este plugin integra las capacidades de DeepSeek AI en Qt Creator 16.0.1 (basado en Qt 6.8.0 o superior).
 
-## Features
+## Características
 
-- Send code selections directly to DeepSeek AI
-- Configure API settings
-- View responses in the output pane
+- Envía selecciones de código directamente a DeepSeek AI
+- Configura ajustes de API
+- Visualiza respuestas en el panel de salida
 
-## Installation
+## Instalación
 
-### Build from Source
+### Compilar desde el código fuente
 
-1. Make sure you have Qt Creator 8.0.1 installed
-2. Clone this repository
-3. Configure the paths in `DeepSeekPlugin.pro` to point to your Qt Creator installation
-4. Build the plugin using qmake:
+1. Asegúrate de tener Qt Creator 16.0.1 instalado
+2. Clona este repositorio
+3. Configura las rutas en `DeepSeekPlugin.pro` para que apunten a tu instalación de Qt Creator
+4. Compila el plugin usando qmake:
    ```
    cd DeepSeekPlugin
    qmake
    make
    ```
-5. Copy the built plugin to Qt Creator's plugin directory:
+5. Copia el plugin compilado al directorio de plugins de Qt Creator:
    ```
-   cp libDeepSeekPlugin.so ~/path/to/qtcreator/lib/qtcreator/plugins/
+   cp libDeepSeekPlugin.so /opt/qtcreator-16.0.1/lib/qtcreator/plugins/
    ```
 
-### Configure the Plugin
+### Configurar el Plugin
 
-1. Open Qt Creator
-2. Go to Tools > Options > DeepSeek
-3. Enter your DeepSeek API key
-4. Configure other settings as needed
+1. Abre Qt Creator
+2. Ve a Herramientas > Opciones > DeepSeek
+3. Introduce tu clave de API de DeepSeek
+4. Configura otros ajustes según sea necesario
 
-## Usage
+## Uso
 
-1. Select code in the editor
-2. Right-click and select "Ask DeepSeek" or use the Tools > DeepSeek > Ask DeepSeek menu option
-3. Enter your prompt
-4. View the response in the DeepSeek output pane
+1. Selecciona código en el editor
+2. Haz clic derecho y selecciona "Preguntar a DeepSeek" o usa la opción de menú Herramientas > DeepSeek > Preguntar a DeepSeek
+3. Ingresa tu consulta
+4. Visualiza la respuesta en el panel de salida de DeepSeek
 
-## Requirements
+## Requisitos
 
-- Qt Creator 8.0.1
-- Qt 5.14.2
-- DeepSeek API key
+- Qt Creator 16.0.1
+- Qt 6.8.0 o superior
+- Clave de API de DeepSeek
 
-## License
+## Cambios para compatibilidad con Qt Creator 16.0.1
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+- Actualización de rutas para apuntar a la nueva instalación de Qt Creator
+- Actualización de dependencias en el archivo JSON del plugin
+- Mejora de compatibilidad con Qt 6.8.0
+- Actualización del estándar de C++ a C++17
+- Inclusión de core5compat para mantener compatibilidad con código existente
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo LICENSE para más detalles.

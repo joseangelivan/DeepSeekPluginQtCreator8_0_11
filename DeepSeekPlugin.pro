@@ -1,13 +1,21 @@
 TARGET = DeepSeekPlugin
 TEMPLATE = lib
+# QT += core gui network widgets
 QT += core gui network widgets
 
-CONFIG += plugin c++14
+# CONFIG += plugin c++14
+CONFIG += plugin c++17
 
 # Paths to Qt Creator
-IDE_SOURCE_TREE = /opt/Qt/Tools/QtCreator
-IDE_BUILD_TREE = /opt/Qt/Tools/QtCreator
+# IDE_SOURCE_TREE = /opt/Qt/Tools/QtCreator
+# IDE_BUILD_TREE = /opt/Qt/Tools/QtCreator
+IDE_SOURCE_TREE = /opt/qtcreator-16.0.1
+IDE_BUILD_TREE = /opt/qtcreator-16.0.1
 message( IDE_SOURCE_TREE:  $${IDE_SOURCE_TREE} )
+
+# Añadir nuestro directorio de compatibilidad primero para interceptar las inclusiones
+INCLUDEPATH += $$PWD/compat
+
 # Include paths
 INCLUDEPATH += $${IDE_SOURCE_TREE}/include/qtcreator
 INCLUDEPATH += $${IDE_SOURCE_TREE}/include/qtcreator/src
@@ -30,13 +38,14 @@ QTC_PLUGIN_DEPENDS += \
 !exists($$IDE_SOURCE_TREE/src/qtcreatorplugin.pri) {
     # Use the shipped pri file as fallback
     include(qtcreatorplugin.pri)
-    message("hola!!")
+    message("Usando qtcreatorplugin.pri incluido")
 } else {
     include($$IDE_SOURCE_TREE/src/qtcreatorplugin.pri)
 }
 
 # Input files
 HEADERS += \
+    compat/QByteArrayView.h \
     deepseekplugin.h \
     deepseekwidget.h \
     deepseekoptionspage.h \
@@ -65,4 +74,4 @@ OTHER_FILES += \
 
 # Translations
 TRANSLATIONS += \
-    translations/deepseek_zh_CN.ts
+    translations/deepseek_es_419.ts

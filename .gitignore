@@ -19,6 +19,7 @@ object_script.*.Debug
 /.qmake.cache
 /.qmake.stash
 .qmake.stash
+.qtc_clangd/*
 *.pro.user
 *.pro.user.*
 *.qbs.user
