@@ -1,6 +1,6 @@
 #pragma once
 
-#include <src/plugins/coreplugin/dialogs/ioptionspage.h>
+#include <coreplugin/dialogs/ioptionspage.h>
 
 #include <QPointer>
 
@@ -13,6 +13,7 @@ namespace Ui {
 class DeepSeekOptionsPage;
 }
 
+// The key fix is making sure we properly declare this as a QObject subclass
 class DeepSeekOptionsPage : public Core::IOptionsPage
 {
     Q_OBJECT

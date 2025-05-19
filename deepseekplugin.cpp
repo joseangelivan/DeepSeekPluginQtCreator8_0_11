@@ -58,11 +58,13 @@ bool DeepSeekPlugin::initialize(const QStringList &arguments, QString *errorStri
 
     // Create options page
     auto optionsPage = new DeepSeekOptionsPage(m_settings, this);
-    addAutoReleasedObject(optionsPage);
+    // Use the compatible version of addAutoReleasedObject
+    ExtensionSystem::PluginManager::addObject(optionsPage);
 
     // Create output pane
     m_outputPane = new DeepSeekOutputPane();
-    addAutoReleasedObject(m_outputPane);
+    // Use the compatible version for output pane too
+    ExtensionSystem::PluginManager::addObject(m_outputPane);
 
     initializeMenus();
 
