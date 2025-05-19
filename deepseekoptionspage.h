@@ -13,7 +13,7 @@ namespace Ui {
 class DeepSeekOptionsPage;
 }
 
-// The key fix is making sure we properly declare this as a QObject subclass
+// Página de configuración del plugin DeepSeek
 class DeepSeekOptionsPage : public Core::IOptionsPage
 {
     Q_OBJECT

@@ -22,7 +22,7 @@ DeepSeekOptionsPage::DeepSeekOptionsPage(DeepSeekSettings *settings, QObject *pa
     // Estas funciones existen desde Qt Creator 10 en adelante
     setCategory("Text Editor");
     setDisplayName(Tr::tr("Text Editor"));
-    setCategoryIcon(Utils::Icon(":/images/deepseek.png")); // Requiere que el recurso esté en un .qrc
+    // setCategoryIcon(Utils::Icon(":/images/deepseek.png")); // Requiere que el recurso esté en un .qrc y que setCategoryIcon exista (no disponible en Qt Creator 8)
 }
 
 DeepSeekOptionsPage::~DeepSeekOptionsPage()
