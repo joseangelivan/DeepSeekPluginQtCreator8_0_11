@@ -16,7 +16,7 @@ class DeepSeekOptionsPage;
 }
 
 // Configuration page for the DeepSeek plugin
-class DeepSeekOptionsPage : public Core::IOptionsPage
+class DeepSeekOptionsPage : public QObject, public Core::IOptionsPage
 {
     Q_OBJECT
 

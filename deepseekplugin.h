@@ -3,6 +3,7 @@
 #include <extensionsystem/iplugin.h>
 #include <QObject>
 #include <QNetworkAccessManager>
+#include <extensionsystem/pluginmanager.h>
 
 namespace DeepSeek {
 namespace Internal {

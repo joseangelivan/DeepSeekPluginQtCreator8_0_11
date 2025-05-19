@@ -34,7 +34,7 @@ DeepSeekOptionsPage::DeepSeekOptionsPage(DeepSeekSettings *settings, QObject *pa
 
 
     // Store parent for safe deletions
-    // setParent(parent);
+    setParent(parent);
 }
 
 DeepSeekOptionsPage::~DeepSeekOptionsPage()

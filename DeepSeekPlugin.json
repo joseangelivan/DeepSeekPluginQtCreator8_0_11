@@ -1,18 +1,20 @@
 {
-    "Name" : "DeepSeekPlugin",
-    "Version" : "0.1.0",
-    "CompatVersion" : "0.1.0",
-    "Vendor" : "YourCompany",
-    "Copyright" : "(C) 2025 YourCompany",
-    "License" : "MIT",
-    "Description" : "Integrates DeepSeek AI into Qt Creator",
-    "Url" : "https://yourwebsite.com",
-    "Category" : "Utilities",
-    
+    "Id": "deepseek.ai.plugin",
+    "Name": "DeepSeekAI Plugin",
+    "Version": "1.0.0",
+    "CompatVersion": "1.0.0",
+    "Vendor": "Ivan Rubianes",
+    "VendorId": "deepseekaiplugin",
+    "Copyright": "(C) 2025 Ivan Rubianes",
+    "License": "GPL-3.0-only WITH Qt-GPL-exception-1.0",
+    "Description": "DeepSeek AI integration for Qt Creator",
+    "Url": "https://github.com/joseangelivan/DeepSeekPlugin",
+    "Category": "Qt Creator::Examples",
+    "Platforms": "Windows,Linux,Mac",
     "Dependencies" : [
-        { "Name" : "Core", "Version" : "16.0.1" },
-        { "Name" : "TextEditor", "Version" : "16.0.1" }
+        { "Id" : "Core", "Version" : "16.0.1" },
+        { "Id" : "ProjectExplorer", "Version" : "16.0.1" },
+        { "Id" : "TextEditor", "Version" : "16.0.1" }
     ],
-    
     "Experimental" : true
 }

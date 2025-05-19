@@ -16,6 +16,7 @@ isEmpty(IDE_BUILD_TREE): IDE_BUILD_TREE = /opt/qtcreator-16.0.1
 
 ## Plugin dependencies and 'pluginspec'
 isEmpty(QTC_PLUGIN_NAME):error("QTC_PLUGIN_NAME must be set, for example to 'MyPlugin'.")
+# message(QTC_PLUGIN_NAME: $$QTC_PLUGIN_NAME )
 
 PLUGINSPEC = $${_PRO_FILE_PWD_}/$${QTC_PLUGIN_NAME}.json
 
@@ -38,7 +39,7 @@ isEmpty(USE_USER_DESTDIR) {
     !isEmpty(qtcinstall.path):USE_USER_DESTDIR = $$qtcinstall.path
 }
 
-DESTDIR = $$IDE_BUILD_TREE/lib/qtcreator/plugins
+# DESTDIR = $$IDE_BUILD_TREE/lib/qtcreator/plugins
 
 # Set destination for plugin lib
 contains(QT_CONFIG, reduce_exports):CONFIG += hide_symbols
@@ -81,14 +82,60 @@ defineReplace(dependencyName) {
     return($$dependency_name)
 }
 
-for(dep, QTC_PLUGIN_DEPENDS) {
-    LIBS += -l$$dependencyName($$dep)
+# Configurar el nombre y dependencias del plugin
+# QTC_PLUGIN_NAME = DeepSeekPlugin
+# QTC_PLUGIN_DEPENDS = coreplugin texteditor
+
+# Definir una función para mapear los nombres internos a nombres de biblioteca
+defineReplace(mapPluginNameToLib) {
+    pluginName = $$1
+    equals(pluginName, "coreplugin"):return(Core)
+    equals(pluginName, "texteditor"):return(TextEditor)
+    return($$pluginName)  # Devolver sin cambios para otros casos
 }
 
-# for lib dependencies
+# defineReplace(libToLink) {
+#     # Convierte el nombre de la librería (ej. utils) en -lUtils
+#     libname = $$1
+#     first_char = $$upper($$left($$libname, 1))
+#     rest_chars = $$right($$libname, -1)
+#     return(-l$$first_char$$rest_chars)
+# }
+
+
+# message(QTC_LIB_DEPENDS: $$QTC_LIB_DEPENDS)
+# # for lib dependencies
+# for(dep, QTC_LIB_DEPENDS) {
+#     message(libs: $$dep)
+#     LIBS += -l$$upper(${QTC_LIB_DEPENDS})
+# }
+LIBS += -lUtils
+
+message(QTC_LIB_DEPENDS: $$QTC_LIB_DEPENDS)
+
+# Convertir manualmente las dependencias conocidas
 for(dep, QTC_LIB_DEPENDS) {
-    LIBS += -l$$dependencyName($$dep)
+    # contains(dep, utils) {
+    #     LIBS += -lUtils
+    # }
+    # Añade más condiciones para otras librerías si es necesario
+    # else {
+        # LIBS += -l$$dep
+    # }
 }
+
+message(Resulting LIBS: $$LIBS)
+
+
+message(QTC_PLUGIN_DEPENDS: $$QTC_PLUGIN_DEPENDS)
+for(dep, QTC_PLUGIN_DEPENDS) {
+    LIBS += -l$$mapPluginNameToLib($$dep)
+}
+
+
+
+
+# LIBS += -lCore -lTextEditor
 
 # Additional directories to look for libraries
 LIBS += -L$${IDE_BUILD_TREE}/lib/qtcreator

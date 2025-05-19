@@ -14,7 +14,7 @@ IDE_BUILD_TREE = /opt/qtcreator-16.0.1
 message( IDE_SOURCE_TREE:  $${IDE_SOURCE_TREE} )
 
 # Add our compatibility directory first to intercept includes
-INCLUDEPATH += $$PWD/compat
+# INCLUDEPATH += $$PWD/compat
 
 # Include paths
 INCLUDEPATH += $${IDE_SOURCE_TREE}/include/qtcreator
@@ -48,8 +48,8 @@ unix:!macx:QMAKE_LFLAGS += -Wl,-rpath,\'$$IDE_BUILD_TREE/lib/qtcreator\'
 
 # Input files
 HEADERS += \
-    compat/QByteArrayView.h \
-    compat/compat_utils.h \
+    # compat/QByteArrayView.h \
+    # compat/compat_utils.h \
     deepseekplugin.h \
     deepseekwidget.h \
     deepseekoptionspage.h \
@@ -82,7 +82,7 @@ TRANSLATIONS += \
     translations/deepseek_zh_CN.ts
 
 # Make sure the destination directory for the binary exists
-QMAKE_PRE_LINK += mkdir -p $$IDE_BUILD_TREE/lib/qtcreator/plugins
+# QMAKE_PRE_LINK += mkdir -p $$IDE_BUILD_TREE/lib/qtcreator/plugins
 
 # Add defines to help with version compatibility
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x050F00
@@ -91,3 +91,4 @@ DEFINES += QT_DEPRECATED_WARNINGS_SINCE=0x060000
 DISTFILES += \
     build.sh \
     fix-compatibility.sh
+
