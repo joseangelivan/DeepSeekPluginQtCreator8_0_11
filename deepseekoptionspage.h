@@ -15,8 +15,8 @@ namespace Ui {
 class DeepSeekOptionsPage;
 }
 
-// Página de configuración del plugin DeepSeek
-class DeepSeekOptionsPage : public Core::IOptionsPageProvider
+// Configuration page for the DeepSeek plugin
+class DeepSeekOptionsPage : public Core::IOptionsPage
 {
     Q_OBJECT
 
@@ -24,12 +24,12 @@ public:
     explicit DeepSeekOptionsPage(DeepSeekSettings *settings, QObject *parent = nullptr);
     ~DeepSeekOptionsPage() override;
 
-    QWidget *widget();
-    void apply();
-    void finish();
+    QWidget *widget() override;
+    void apply() override;
+    void finish() override;
 
-    // IOptionsPageProvider methods
-    void setCategory(Utils::Id category);
+    // Methods to handle category settings
+    void setCategory(const Utils::Id &category);
     void setDisplayCategory(const QString &displayCategory);
     void setCategoryIconPath(const Utils::FilePath &iconPath);
 

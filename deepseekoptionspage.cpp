@@ -11,7 +11,7 @@ namespace DeepSeek {
 namespace Internal {
 
 DeepSeekOptionsPage::DeepSeekOptionsPage(DeepSeekSettings *settings, QObject *parent)
-    : Core::IOptionsPageProvider(parent),
+    : Core::IOptionsPage(), // Changed from IOptionsPageProvider to IOptionsPage
       m_settings(settings),
       m_widget(nullptr),
       ui(nullptr)
@@ -22,6 +22,9 @@ DeepSeekOptionsPage::DeepSeekOptionsPage(DeepSeekSettings *settings, QObject *pa
     // Set default category
     setCategory(Utils::Id("TextEditor"));
     setDisplayCategory(Tr::tr("Text Editor"));
+
+    // Store parent for safe deletions
+    setParent(parent);
 }
 
 DeepSeekOptionsPage::~DeepSeekOptionsPage()
@@ -58,7 +61,7 @@ void DeepSeekOptionsPage::apply()
     m_settings->setTemperature(ui->temperatureSpinBox->value());
     m_settings->setMaxTokens(ui->maxTokensSpinBox->value());
 
-    // Usa la instancia global de QSettings proporcionada por Qt Creator
+    // Use the global QSettings instance provided by Qt Creator
     m_settings->saveSettings(Core::ICore::settings());
 }
 
@@ -70,14 +73,21 @@ void DeepSeekOptionsPage::finish()
     ui = nullptr;
 }
 
-// Implementation of IOptionsPageProvider methods
-void DeepSeekOptionsPage::setCategory(Utils::Id category)
+// Implementation of category setting methods - simplified to directly set fields
+void DeepSeekOptionsPage::setCategory(const Utils::Id &category)
 {
     m_category = category;
-    IOptionsPageProvider::setCategory(category);
 }
 
 void DeepSeekOptionsPage::setDisplayCategory(const QString &displayCategory)
 {
     m_displayCategory = displayCategory;
-    IOptionsPageProvider::set
+}
+
+void DeepSeekOptionsPage::setCategoryIconPath(const Utils::FilePath &iconPath)
+{
+    m_categoryIconPath = iconPath;
+}
+
+} // namespace Internal
+} // namespace DeepSeek
