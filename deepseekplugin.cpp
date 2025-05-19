@@ -54,6 +54,7 @@ bool DeepSeekPlugin::initialize(const QStringList &arguments, QString *errorStri
     Q_UNUSED(errorString)
 
     m_settings = new DeepSeekSettings(this);
+    // Use Core::ICore::settings() without casting
     m_settings->readSettings(Core::ICore::settings());
 
     // Create options page

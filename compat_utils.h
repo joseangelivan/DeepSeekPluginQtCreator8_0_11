@@ -4,6 +4,7 @@
 
 #include <QtCore/QtGlobal>
 #include <QtCore/QMetaType>
+#include <extensionsystem/pluginmanager.h>
 
 // Helper macros for compatibility across different Qt Creator versions
 #ifndef QTC_CHECK

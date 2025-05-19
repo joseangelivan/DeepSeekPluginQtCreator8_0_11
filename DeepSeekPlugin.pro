@@ -49,6 +49,7 @@ unix:!macx:QMAKE_LFLAGS += -Wl,-rpath,\'$$IDE_BUILD_TREE/lib/qtcreator\'
 # Input files
 HEADERS += \
     compat/QByteArrayView.h \
+    compat/compat_utils.h \
     deepseekplugin.h \
     deepseekwidget.h \
     deepseekoptionspage.h \
@@ -86,3 +87,7 @@ QMAKE_PRE_LINK += mkdir -p $$IDE_BUILD_TREE/lib/qtcreator/plugins
 # Add defines to help with version compatibility
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x050F00
 DEFINES += QT_DEPRECATED_WARNINGS_SINCE=0x060000
+
+DISTFILES += \
+    build.sh \
+    fix-compatibility.sh

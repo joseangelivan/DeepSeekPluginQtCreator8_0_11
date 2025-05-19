@@ -11,7 +11,7 @@ namespace DeepSeek {
 namespace Internal {
 
 DeepSeekOptionsPage::DeepSeekOptionsPage(DeepSeekSettings *settings, QObject *parent)
-    : Core::IOptionsPage(parent),
+    : Core::IOptionsPageProvider(parent),
       m_settings(settings),
       m_widget(nullptr),
       ui(nullptr)
@@ -19,10 +19,9 @@ DeepSeekOptionsPage::DeepSeekOptionsPage(DeepSeekSettings *settings, QObject *pa
     setId("DeepSeekSettings");
     setDisplayName(Tr::tr("DeepSeek"));
 
-    // Estas funciones existen desde Qt Creator 10 en adelante
-    setCategory("Text Editor");
-    setDisplayName(Tr::tr("Text Editor"));
-    // setCategoryIcon(Utils::Icon(":/images/deepseek.png")); // Requiere que el recurso esté en un .qrc y que setCategoryIcon exista (no disponible en Qt Creator 8)
+    // Set default category
+    setCategory(Utils::Id("TextEditor"));
+    setDisplayCategory(Tr::tr("Text Editor"));
 }
 
 DeepSeekOptionsPage::~DeepSeekOptionsPage()
@@ -71,5 +70,14 @@ void DeepSeekOptionsPage::finish()
     ui = nullptr;
 }
 
-} // namespace Internal
-} // namespace DeepSeek
+// Implementation of IOptionsPageProvider methods
+void DeepSeekOptionsPage::setCategory(Utils::Id category)
+{
+    m_category = category;
+    IOptionsPageProvider::setCategory(category);
+}
+
+void DeepSeekOptionsPage::setDisplayCategory(const QString &displayCategory)
+{
+    m_displayCategory = displayCategory;
+    IOptionsPageProvider::set

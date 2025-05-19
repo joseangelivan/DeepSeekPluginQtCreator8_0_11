@@ -1,4 +1,5 @@
 #include "deepseeksettings.h"
+#include <utils/qtcsettings.h>
 
 namespace DeepSeek {
 namespace Internal {
@@ -13,27 +14,27 @@ DeepSeekSettings::DeepSeekSettings(QObject *parent)
 {
 }
 
-void DeepSeekSettings::readSettings(QSettings *settings)
+void DeepSeekSettings::readSettings(Utils::QtcSettings *settings)
 {
-    settings->beginGroup(QLatin1String("DeepSeekPlugin"));
-    m_apiKey = settings->value(QLatin1String("ApiKey"), QString()).toString();
-    m_apiUrl = settings->value(QLatin1String("ApiUrl"), m_apiUrl).toString();
-    m_model = settings->value(QLatin1String("Model"), m_model).toString();
-    m_systemPrompt = settings->value(QLatin1String("SystemPrompt"), m_systemPrompt).toString();
-    m_temperature = settings->value(QLatin1String("Temperature"), m_temperature).toDouble();
-    m_maxTokens = settings->value(QLatin1String("MaxTokens"), m_maxTokens).toInt();
+    settings->beginGroup(Utils::Key("DeepSeekPlugin"));
+    m_apiKey = settings->value(Utils::Key("ApiKey"), QString()).toString();
+    m_apiUrl = settings->value(Utils::Key("ApiUrl"), m_apiUrl).toString();
+    m_model = settings->value(Utils::Key("Model"), m_model).toString();
+    m_systemPrompt = settings->value(Utils::Key("SystemPrompt"), m_systemPrompt).toString();
+    m_temperature = settings->value(Utils::Key("Temperature"), m_temperature).toDouble();
+    m_maxTokens = settings->value(Utils::Key("MaxTokens"), m_maxTokens).toInt();
     settings->endGroup();
 }
 
-void DeepSeekSettings::saveSettings(QSettings *settings) const
+void DeepSeekSettings::saveSettings(Utils::QtcSettings *settings) const
 {
-    settings->beginGroup(QLatin1String("DeepSeekPlugin"));
-    settings->setValue(QLatin1String("ApiKey"), m_apiKey);
-    settings->setValue(QLatin1String("ApiUrl"), m_apiUrl);
-    settings->setValue(QLatin1String("Model"), m_model);
-    settings->setValue(QLatin1String("SystemPrompt"), m_systemPrompt);
-    settings->setValue(QLatin1String("Temperature"), m_temperature);
-    settings->setValue(QLatin1String("MaxTokens"), m_maxTokens);
+    settings->beginGroup(Utils::Key("DeepSeekPlugin"));
+    settings->setValue(Utils::Key("ApiKey"), m_apiKey);
+    settings->setValue(Utils::Key("ApiUrl"), m_apiUrl);
+    settings->setValue(Utils::Key("Model"), m_model);
+    settings->setValue(Utils::Key("SystemPrompt"), m_systemPrompt);
+    settings->setValue(Utils::Key("Temperature"), m_temperature);
+    settings->setValue(Utils::Key("MaxTokens"), m_maxTokens);
     settings->endGroup();
 }
 

@@ -1,8 +1,12 @@
 #pragma once
 
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
+
+// Forward declaration to avoid including QtcSettings header
+namespace Utils {
+class QtcSettings;
+}
 
 namespace DeepSeek {
 namespace Internal {
@@ -14,8 +18,8 @@ class DeepSeekSettings : public QObject
 public:
     explicit DeepSeekSettings(QObject *parent = nullptr);
 
-    void readSettings(QSettings *settings);
-    void saveSettings(QSettings *settings) const;
+    void readSettings(Utils::QtcSettings *settings);
+    void saveSettings(Utils::QtcSettings *settings) const;
 
     QString apiKey() const;
     void setApiKey(const QString &apiKey);
