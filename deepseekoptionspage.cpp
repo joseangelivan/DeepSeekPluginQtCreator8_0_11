@@ -19,12 +19,22 @@ DeepSeekOptionsPage::DeepSeekOptionsPage(DeepSeekSettings *settings, QObject *pa
     setId("DeepSeekSettings");
     setDisplayName(Tr::tr("DeepSeek"));
 
+
+    // Registrar la categoría con su icono
+    Core::IOptionsPage::registerCategory("TextEditor",
+                                         Tr::tr("Text Editor"),
+                                         Utils::FilePath(":/deepseek/images/deepseek.png"));
+
     // Set default category
     setCategory(Utils::Id("TextEditor"));
+
+
+
     setDisplayCategory(Tr::tr("Text Editor"));
 
+
     // Store parent for safe deletions
-    setParent(parent);
+    // setParent(parent);
 }
 
 DeepSeekOptionsPage::~DeepSeekOptionsPage()

@@ -60,12 +60,12 @@ bool DeepSeekPlugin::initialize(const QStringList &arguments, QString *errorStri
     // Create options page
     auto optionsPage = new DeepSeekOptionsPage(m_settings, this);
     // Use the compatible version of addAutoReleasedObject
-    ExtensionSystem::PluginManager::addObject(optionsPage);
+    ExtensionSystem::PluginManager::instance()->addObject(optionsPage);
 
     // Create output pane
     m_outputPane = new DeepSeekOutputPane();
     // Use the compatible version for output pane too
-    ExtensionSystem::PluginManager::addObject(m_outputPane);
+    ExtensionSystem::PluginManager::instance()->addObject(m_outputPane);
 
     initializeMenus();
 
@@ -98,7 +98,8 @@ void DeepSeekPlugin::initializeMenus()
     ActionManager::actionContainer(Core::Constants::M_TOOLS)->addMenu(menu);
 
     // Create Actions
-    auto actionId = "DeepSeek.Action";
+    // auto actionId = "DeepSeek.Action";
+    Utils::Id actionId = Utils::Id::fromString( QString("DeepSeek.Action") );
     QAction *action = new QAction(Tr::tr("Ask DeepSeek"), this);
     Core::Command *cmd = ActionManager::registerAction(action, actionId);
     menu->addAction(cmd);
