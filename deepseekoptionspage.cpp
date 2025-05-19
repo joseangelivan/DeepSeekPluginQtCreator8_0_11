@@ -4,21 +4,25 @@
 #include "deepseektr.h"
 
 #include <coreplugin/icore.h>
+#include <utils/icon.h> // Necesario para Utils::Icon
+#include <QSettings>
 
 namespace DeepSeek {
 namespace Internal {
 
 DeepSeekOptionsPage::DeepSeekOptionsPage(DeepSeekSettings *settings, QObject *parent)
-    : IOptionsPage(parent),
+    : Core::IOptionsPage(parent),
       m_settings(settings),
       m_widget(nullptr),
       ui(nullptr)
 {
     setId("DeepSeekSettings");
     setDisplayName(Tr::tr("DeepSeek"));
+
+    // Estas funciones existen desde Qt Creator 10 en adelante
     setCategory("Text Editor");
-    setDisplayCategory(Tr::tr("Text Editor"));
-    setCategoryIcon(Utils::Icons::TEXT_EDITOR_SETTINGS);
+    setDisplayName(Tr::tr("Text Editor"));
+    setCategoryIcon(Utils::Icon(":/images/deepseek.png")); // Requiere que el recurso esté en un .qrc
 }
 
 DeepSeekOptionsPage::~DeepSeekOptionsPage()
@@ -55,6 +59,7 @@ void DeepSeekOptionsPage::apply()
     m_settings->setTemperature(ui->temperatureSpinBox->value());
     m_settings->setMaxTokens(ui->maxTokensSpinBox->value());
 
+    // Usa la instancia global de QSettings proporcionada por Qt Creator
     m_settings->saveSettings(Core::ICore::settings());
 }
 
